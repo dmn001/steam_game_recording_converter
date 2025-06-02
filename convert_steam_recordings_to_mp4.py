@@ -31,6 +31,8 @@ if not steam_user_folder:
 video_dir = os.path.join(base_path, steam_user_folder, target_subpath)
 print(f"Searching in: {video_dir}")
 
+output_dir = 'M:/VIDEO/steam_background_recordings/'
+
 # Loop over all subfolders like: bg_1903340_20250601_093500
 for folder in os.listdir(video_dir):
     full_folder_path = os.path.join(video_dir, folder)
@@ -38,7 +40,7 @@ for folder in os.listdir(video_dir):
         session_mpd = os.path.join(full_folder_path, "session.mpd")
         if os.path.isfile(session_mpd):
             output_filename = f"{folder}.mp4"
-            output_path = os.path.join(os.getcwd(), output_filename)
+            output_path = os.path.join(output_dir, output_filename)
 
             # Skip if output file already exists
             if os.path.isfile(output_path):

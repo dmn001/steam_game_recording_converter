@@ -28,4 +28,4 @@ This Python script converts Steam game recordings saved in fragmented `.m4s` fil
 2. Run the script:
 
 ```bash
-python steam_recordings_to_mp4.py
+python convert_steam_recordings_to_mp4.py
