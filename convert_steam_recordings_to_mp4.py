@@ -42,23 +42,26 @@ for folder in os.listdir(video_dir):
             output_filename = f"{folder}.mp4"
             output_path = os.path.join(output_dir, output_filename)
 
-            # Skip if output file already exists
-            if os.path.isfile(output_path):
-                print(f"Skipping: {output_filename} already exists.")
-                continue
-
-            print(f"Converting: {folder} -> {output_filename}")
-
-            # Run ffmpeg command
-            result = subprocess.run([
-                "ffmpeg",
-                "-y",
-                "-i", session_mpd,
-                "-c", "copy",
-                output_path
-            ], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-
-            if result.returncode == 0:
-                print(f"Success: {output_filename}")
+            # Skip if output file starts with the original output filename
+            for existing_file in os.listdir(output_dir):
+                if existing_file.startswith(folder) and existing_file.endswith('.mp4'):
+                    print(f"Skipping: {output_filename}, similar file {existing_file} already exists.")
+                    break
             else:
-                print(f"Failed to convert {folder}: {result.stderr}")
+                # No similar file found, proceed with conversion
+                output_filename = f"{folder}.mp4"
+                output_path = os.path.join(output_dir, output_filename)
+
+                print(f"Converting: {folder} -> {output_filename}")
+                result = subprocess.run([
+                    "ffmpeg",
+                    "-y",
+                    "-i", session_mpd,
+                    "-c", "copy",
+                    output_path
+                ], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+                if result.returncode == 0:
+                    print(f"Success: {output_filename}")
+                else:
+                    print(f"Failed to convert {folder}: {result.stderr}")

@@ -9,6 +9,7 @@ This Python script converts Steam game recordings saved in fragmented `.m4s` fil
 - Automatically detects your Steam userdata folder.
 - Converts all Steam game recording sessions found in subfolders.
 - Skips conversion if output `.mp4` file already exists to save time.
+- Detects and skips output files that were renamed but still start with the original session folder name. Allows renaming output files appending text without causing duplicate file output.
 - Supports manual fallback to specify your Steam user ID if auto-detection fails.
 
 ---
@@ -29,3 +30,6 @@ This Python script converts Steam game recordings saved in fragmented `.m4s` fil
 
 ```bash
 python convert_steam_recordings_to_mp4.py
+```
+
+3. Converted .mp4 files will be saved in the output_dir defined in the script (M:/VIDEO/steam_background_recordings/ by default). Rename as necessary.
